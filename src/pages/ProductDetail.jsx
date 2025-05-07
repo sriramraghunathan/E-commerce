@@ -1,22 +1,42 @@
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
-const productDetails = {
-  1: { name: "T-Shirt", description: "Comfortable cotton shirt", price: 20 },
-  2: { name: "Sneakers", description: "Stylish running shoes", price: 50 },
-  3: { name: "Backpack", description: "Spacious backpack", price: 30 },
-};
+const ProductDetail = ({ cart, setCart }) => {
+  const location = useLocation();
+  const product = location.state;
 
-const ProductDetail = () => {
-  const { id } = useParams();
-  const product = productDetails[id];
+  if (!product) {
+    return (
+      <div className="text-center mt-10 text-red-600">Product not found!</div>
+    );
+  }
 
-  if (!product) return <div className="p-6">Product not found</div>;
+  const addToCart = () => {
+    setCart([...cart, product]);
+  };
 
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-bold mb-2">{product.name}</h2>
-      <p>{product.description}</p>
-      <p className="mt-2 font-semibold">${product.price}</p>
+      <div className="max-w-3xl mx-auto">
+        <div className="flex flex-col md:flex-row items-center md:items-start">
+          <img
+            src={product.image}
+            alt={product.name}
+            className="w-full md:w-96 h-auto object-cover mb-4 md:mb-0 rounded"
+          />
+          <div className="ml-0 md:ml-8">
+            <h2 className="text-3xl font-bold mb-4">{product.name}</h2>
+            <p className="text-gray-600 mb-4">{product.description}</p>
+            <p className="text-xl font-semibold mb-4">₹{product.price}</p>
+
+            <button
+              className="w-full md:w-auto bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition"
+              onClick={addToCart}
+            >
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
