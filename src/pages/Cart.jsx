@@ -32,7 +32,7 @@ const Cart = ({ cart, setCart }) => {
                 </div>
                 <button
                   onClick={() => removeFromCart(index)}
-                  className="text-white bg-red-400 p-2  rounded-full"
+                  className="text-white bg-red-400 text-3xl hover:bg-red-600  w-12 h-12 text-center rounded-full"
                 >
                   x
                 </button>
